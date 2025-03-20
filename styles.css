@@ -1,0 +1,64 @@
+body {
+    display: flex;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 40px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    gap: 10px;
+    background-color: blanchedalmond;
+}
+
+#choices {
+    margin: 10px 0 10px 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 90px;
+}
+
+#computer, #player {
+    width: 120px;
+    height: 120px;
+    background-color: #f2f2f2;
+    border: 2px solid black;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80px;
+    cursor: pointer;
+}
+
+#scoreboard {
+    display: flex;
+    justify-content: space-between;
+    gap: 80px;
+}
+
+
+#controls {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+#controls > button {
+    font-size: 20px;
+    padding: 10px 20px;
+}
+
+button {
+    background-color: rgb(230, 223, 211);
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+h2 {
+    margin: 20px 0 20px 0;
+}
+
+#result {
+    text-align: center;
+    font-size: 40px;
+}
