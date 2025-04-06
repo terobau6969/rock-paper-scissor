@@ -1,64 +1,62 @@
-// random mnumber 1,2,3 being rock paper and scissors
-// computer displays play rock paper scissors ui and then throw upt 1 or 2 or 3 by random number
-// user gets option to choose between 1 2 or 3 being rock paper and scissors respectively
-//if computer and user has the same choice, its a draw if not user will win or lose.
 let playerScore = 0;
 let computerScore = 0;
 
-document.getElementById('rock').addEventListener('click', function() {
-    playGame('rock');
-});
-document.getElementById('paper').addEventListener("click", function() {
-    playGame('paper');
-});
-document.getElementById('scissors').addEventListener("click", function() {
-    playGame('scissors');
-});
-document.getElementById('reset').addEventListener("click", function() {
-    resetGame();
-});
+// Event listeners for choices
+document.getElementById('rock').addEventListener('click', () => playGame('rock'));
+document.getElementById('paper').addEventListener('click', () => playGame('paper'));
+document.getElementById('scissors').addEventListener('click', () => playGame('scissors'));
+document.getElementById('reset').addEventListener('click', resetGame);
 
-function getComputerChoice(){
-    const randomNumber = Math.floor(Math.random() * 3) + 1;
-    if  (randomNumber === 1)
-        return ("rock");
-    else if (randomNumber === 2)
-        return ("paper");
-    else
-        return ("scissors");
+// Generate computer choice
+function getComputerChoice() {
+    const choices = ['rock', 'paper', 'scissors'];
+    const randomIndex = Math.floor(Math.random() * 3);
+    return choices[randomIndex];
 }
 
-
+// Core game logic
 function playGame(playerChoice) {
-    let computerChoice = getComputerChoice();
+    if (playerScore >= 3 || computerScore >= 3) return; // Stop game if already over
+
+    const computerChoice = getComputerChoice();
 
     document.getElementById("player").textContent = choiceEmoji(playerChoice);
     document.getElementById("computer").textContent = choiceEmoji(computerChoice);
 
-    let resultText = determineWinner(playerChoice, computerChoice);
-
+    const resultText = determineWinner(playerChoice, computerChoice);
     document.getElementById("result").textContent = resultText;
 
+    // Update scores on screen
     document.getElementById("playerScore").textContent = `🥸: ${playerScore}`;
     document.getElementById("computerScore").textContent = `🤖: ${computerScore}`;
+
+    // End game message
+    if (playerScore === 3 || computerScore === 3) {
+        const finalResult = playerScore === 3 ? "🥳 You are the RPS God!" : "😓 Try harder next time!";
+        document.getElementById("result").textContent = finalResult;
+    }
 }
 
-function determineWinner(playerChoice, computerChoice) {
-    if (playerChoice === computerChoice){
-        return "It's a draw!";
-    }
-    else if ((playerChoice === "rock" && computerChoice === "scissors") ||
-        (playerChoice === "paper" && computerChoice === "rock") ||
-        (playerChoice === "scissors" && computerChoice === "paper")){
-            playerScore++;
-            return "You win!";
-        }
-    else {
+// Decide winner of the round
+function determineWinner(player, computer) {
+    if (player === computer) return "It's a draw!";
+
+    const winConditions = {
+        rock: "scissors",
+        paper: "rock",
+        scissors: "paper"
+    };
+
+    if (winConditions[player] === computer) {
+        playerScore++;
+        return "You win this round!";
+    } else {
         computerScore++;
-        return "Computer wins!";
+        return "Computer wins this round!";
     }
 }
 
+// Convert choice to emoji
 function choiceEmoji(choice) {
     switch (choice) {
         case "rock": return "✊";
@@ -68,7 +66,7 @@ function choiceEmoji(choice) {
     }
 }
 
-
+// Reset everything
 function resetGame() {
     playerScore = 0;
     computerScore = 0;
@@ -78,4 +76,3 @@ function resetGame() {
     document.getElementById("playerScore").textContent = "🥸: 0";
     document.getElementById("computerScore").textContent = "🤖: 0";
 }
-
